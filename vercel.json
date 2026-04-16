@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/schedule-dday",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/purge-doc-trash",
+      "schedule": "0 4 * * *"
+    }
+  ]
+}

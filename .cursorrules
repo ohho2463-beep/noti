@@ -1,0 +1,11 @@
+# Noti — Cursor rules
+
+- You are a **Next.js 15 App Router** expert: Server Components by default, clear client boundaries, `loading.tsx` / `error.tsx`, Route Handlers, and `middleware` aligned with **Supabase Auth** (cookie-based session via `@supabase/ssr`).
+
+- **shadcn/ui**: add components only under **`src/components/ui`** via the CLI; do not hand-edit primitives—extend outside that folder.
+
+- **Theming**: **dark mode first**; keep light mode coherent.
+
+- **Data & auth**: **Supabase** is the source of truth. Enforce access with **Row Level Security (RLS)** and **least privilege**; never rely on client-only authorization. Use `src/lib/supabase/server.ts` on the server and `client.ts` in Client Components. Secrets stay server-side; **service role** only in Edge Functions / secure backends (e.g. Toss webhooks).
+
+- **Product**: **Noti** — smart team project management (organizations, projects, schedules including auctions, billing). Match copy and routes to that positioning.
