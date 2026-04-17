@@ -2,6 +2,8 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
+import { getSupabasePublicEnvStatus } from "@/lib/supabase/supabase-public-env";
+
 /**
  * 이메일 확인·OAuth PKCE 등 코드 교환 (Supabase 공식 App Router 플로우)
  */
@@ -12,11 +14,11 @@ export async function GET(request: Request) {
 
   if (code) {
     const cookieStore = await cookies();
-    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-    if (!url || !key) {
+    const env = getSupabasePublicEnvStatus();
+    if (!env.ok) {
       return NextResponse.redirect(`${origin}/auth/error?reason=config`);
     }
+    const { url, key } = env;
 
     const supabase = createServerClient(url, key, {
       cookies: {

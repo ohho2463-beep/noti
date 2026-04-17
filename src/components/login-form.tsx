@@ -51,9 +51,11 @@ export function LoginForm() {
     >
       {config === "1" ? (
         <p className="rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm text-amber-950 dark:text-amber-100">
-          서버에 <code className="rounded bg-background/60 px-1 text-xs">NEXT_PUBLIC_SUPABASE_URL</code> ·{" "}
-          <code className="rounded bg-background/60 px-1 text-xs">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> 가 없습니다.
-          배포 환경 변수를 확인한 뒤 다시 시도하세요.
+          <code className="rounded bg-background/60 px-1 text-xs">NEXT_PUBLIC_SUPABASE_URL</code> ·{" "}
+          <code className="rounded bg-background/60 px-1 text-xs">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> 가 없거나 예시
+          값 그대로입니다. 로컬이면 <code className="rounded bg-background/60 px-1 text-xs">.env.local</code> 에
+          Supabase 대시보드(Settings → API)의 실제 값을 넣고 개발 서버를 다시 띄우세요. 배포 환경이면 호스팅의
+          환경 변수를 확인하세요.
         </p>
       ) : null}
       {suspended === "1" ? (

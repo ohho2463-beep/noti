@@ -1,6 +1,8 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+import { getSupabasePublicEnvStatus } from "./supabase-public-env";
+
 const DASHBOARD_PREFIX = "/dashboard";
 
 function isProtectedPath(path: string): boolean {
@@ -14,12 +16,10 @@ function isProtectedPath(path: string): boolean {
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
+  const env = getSupabasePublicEnvStatus();
   const path = request.nextUrl.pathname;
 
-  if (!url || !key) {
+  if (!env.ok) {
     if (isProtectedPath(path)) {
       const redirect = request.nextUrl.clone();
       redirect.pathname = "/login";
@@ -29,6 +29,8 @@ export async function updateSession(request: NextRequest) {
     }
     return response;
   }
+
+  const { url, key } = env;
 
   const supabase = createServerClient(url, key, {
     cookies: {
